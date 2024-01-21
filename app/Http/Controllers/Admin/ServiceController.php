@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Service;
 use Illuminate\Http\Request;
+use App\DataTables\ServiceDataTable;
+use App\Http\Controllers\Controller;
 
 class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ServiceDataTable $dataTable)
     {
-        return view('admin.service.index');
+        return $dataTable->render('admin.service.index');
     }
 
     /**
@@ -20,7 +22,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.service.create');
     }
 
     /**
@@ -28,7 +30,18 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'max:200'],
+            'description' => ['required', 'max:500']
+        ]);
+
+        $create = new Service();
+        $create->name = $request->name;
+        $create->description = $request->description;
+        $create->save();
+
+        toastr()->success('Created successfully!', 'Congrats');
+        return redirect()->route('admin.service.index');
     }
 
     /**
@@ -44,7 +57,8 @@ class ServiceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $service = Service::findOrFail($id);
+        return view('admin.service.edit', compact('service'));  
     }
 
     /**
@@ -52,7 +66,18 @@ class ServiceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'max:200'],
+            'description' => ['required', 'max:500']
+        ]);
+
+        $edit = Service::findOrFail($id);
+        $edit->name = $request->name;
+        $edit->description = $request->description;
+        $edit->save();
+
+        toastr()->success('Updated successfully!', 'Congrats');
+        return redirect()->route('admin.service.index');
     }
 
     /**
@@ -60,6 +85,7 @@ class ServiceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Service::findOrFail($id);
+        $data->delete();
     }
 }
