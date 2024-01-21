@@ -20,7 +20,7 @@
                     <div class="card-header">
                         <h4>All Services</h4>
                         <div class="card-header-action">
-                            <a href="{{ route('admin.typer-title.create') }}" class="btn btn-success">Create New <i class="fas fa-plus"></i></a>
+                            <a href="{{ route('admin.service.create') }}" class="btn btn-success">Create New <i class="fas fa-plus"></i></a>
                         </div>
                     </div>
                     <div class="card-body">
