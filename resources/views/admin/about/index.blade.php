@@ -52,7 +52,7 @@
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Resume Upload</label>
                                 <div class="col-sm-12 col-md-7">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile">
+                                        <input type="file" name="resume" class="custom-file-input" id="customFile">
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                     </div>
                                 </div>
