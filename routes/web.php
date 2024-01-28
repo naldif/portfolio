@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TyperTitleController;
+use App\Http\Controllers\Admin\PortfolioItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,4 +54,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     /** Category Route */
     Route::resource('category', CategoryController::class);
+
+    /** Portfolio Item Route */
+    Route::resource('portfolio-item', PortfolioItemController::class);
 });
