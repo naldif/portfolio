@@ -43,18 +43,18 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <select class="form-control selectric">
-                                      <option>Tech</option>
-                                      <option>News</option>
-                                      <option>Political</option>
+                                    <select class="form-control selectric" name="category_id">
+                                      <option value="">-- Select --</option>
+                                      @foreach ($category as $item)
+                                          <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                      @endforeach
                                     </select>
                                   </div>
                             </div>
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <textarea class="summernote"
-                                        name="description"></textarea>
+                                    <textarea class="summernote" name="description"></textarea>
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
@@ -73,7 +73,7 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                 <div class="col-sm-12 col-md-7">
-                                    <button class="btn btn-primary">Update</button>
+                                    <button class="btn btn-primary">Create</button>
                                 </div>
                             </div>
 
