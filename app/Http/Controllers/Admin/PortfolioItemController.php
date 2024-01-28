@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\PortfolioItem;
 use App\Http\Controllers\Controller;
 use App\DataTables\PortfolioDataTable;
 
@@ -21,7 +23,8 @@ class PortfolioItemController extends Controller
      */
     public function create()
     {
-        return view('admin.portfolio-item.create');
+        $category = Category::all();
+        return view('admin.portfolio-item.create',compact('category'));
     }
 
     /**
@@ -29,7 +32,29 @@ class PortfolioItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'image' => ['required','image', 'max:5000'],
+            'title' => ['required', 'max:200'],
+            'category_id' => ['required','numeric'],
+            'description' => ['required', 'max:500'],
+            'client' => ['max:200'],
+            'website' => ['url'],
+        ]);
+
+        $imagePath = handleUpload('image');
+        $create = new PortfolioItem;
+
+        $create->image =  $imagePath;
+        $create->title =  $request->title;
+        $create->category_id =  $request->category_id;
+        $create->description =  $request->description;
+        $create->client =  $request->client;
+        $create->website =  $request->website;
+
+        $create->save();
+        toastr()->success('Created successfully!', 'Congrats');
+        return redirect()->route('admin.portfolio-item.index');
     }
 
     /**
