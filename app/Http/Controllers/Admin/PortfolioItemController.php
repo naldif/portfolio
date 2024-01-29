@@ -6,14 +6,14 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\PortfolioItem;
 use App\Http\Controllers\Controller;
-use App\DataTables\PortfolioDataTable;
+use App\DataTables\PortfolioItemDataTable;
 
 class PortfolioItemController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(PortfolioDataTable $dataTable)
+    public function index(PortfolioItemDataTable $dataTable)
     {
         return $dataTable->render('admin.portfolio-item.index');
     }
@@ -70,7 +70,9 @@ class PortfolioItemController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::all();
+        $portfolio = PortfolioItem::findOrFail($id);
+        return view('admin.portfolio-item.edit', compact('portfolio','category'));
     }
 
     /**
@@ -78,7 +80,28 @@ class PortfolioItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'image' => ['image', 'max:5000'],
+            'title' => ['required', 'max:200'],
+            'category_id' => ['required','numeric'],
+            'description' => ['required', 'max:500'],
+            'client' => ['max:200'],
+            'website' => ['url'],
+        ]);
+
+        $imagePath = handleUpload('image');
+        $update = PortfolioItem::findOrFail($id);
+
+        $update->image =  $imagePath;
+        $update->title =  $request->title;
+        $update->category_id =  $request->category_id;
+        $update->description =  $request->description;
+        $update->client =  $request->client;
+        $update->website =  $request->website;
+
+        $update->save();
+        toastr()->success('Created successfully!', 'Congrats');
+        return redirect()->route('admin.portfolio-item.index');
     }
 
     /**
@@ -86,6 +109,7 @@ class PortfolioItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $portfolio = PortfolioItem::findOrFail($id);
+        $portfolio->delete();
     }
 }
