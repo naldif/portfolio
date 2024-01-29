@@ -25,3 +25,16 @@ function handleUpload($inputName, $model=null) {
     }
   
 }    
+
+// Delete file
+
+function deleteFileIfExist($filePath){
+   
+    try{
+        if(\File::exists(public_path($filePath))){
+            \File::delete(public_path($filePath));
+        }
+    }catch(\Exception $e) {
+        throw $e;
+    }
+}
