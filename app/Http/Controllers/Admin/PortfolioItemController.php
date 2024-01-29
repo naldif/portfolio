@@ -110,6 +110,7 @@ class PortfolioItemController extends Controller
     public function destroy(string $id)
     {
         $portfolio = PortfolioItem::findOrFail($id);
+        deleteFileIfExist($portfolio->image);
         $portfolio->delete();
     }
 }
