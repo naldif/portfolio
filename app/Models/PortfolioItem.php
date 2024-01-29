@@ -17,4 +17,8 @@ class PortfolioItem extends Model
         'client',
         'website',
     ];
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
 }
