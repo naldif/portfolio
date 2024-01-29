@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TyperTitleController;
 use App\Http\Controllers\Admin\PortfolioItemController;
+use App\Http\Controllers\Admin\SectionSettingController;
+use App\Http\Controllers\Admin\PortfolioSectionSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,4 +59,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     /** Portfolio Item Route */
     Route::resource('portfolio-item', PortfolioItemController::class);
+
+    Route::resource('section-setting', PortfolioSectionSettingController::class);
 });
