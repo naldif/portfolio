@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('portfolio-detail/{id}', [HomeController::class, 'showPortfolio'])->name('show.portfolio');
+
 // Admin Router
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
 

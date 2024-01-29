@@ -84,22 +84,22 @@ class PortfolioItemController extends Controller
             'image' => ['image', 'max:5000'],
             'title' => ['required', 'max:200'],
             'category_id' => ['required','numeric'],
-            'description' => ['required', 'max:500'],
+            'description' => ['required'],
             'client' => ['max:200'],
             'website' => ['url'],
         ]);
 
-        $imagePath = handleUpload('image');
-        $update = PortfolioItem::findOrFail($id);
+        $portfolioItem = PortfolioItem::findOrFail($id);
+        $imagePath = handleUpload('image', $portfolioItem);
 
-        $update->image =  $imagePath;
-        $update->title =  $request->title;
-        $update->category_id =  $request->category_id;
-        $update->description =  $request->description;
-        $update->client =  $request->client;
-        $update->website =  $request->website;
+        $portfolioItem->image =  (!empty($imagePath) ? $imagePath : $portfolioItem->image);
+        $portfolioItem->title =  $request->title;
+        $portfolioItem->category_id =  $request->category_id;
+        $portfolioItem->description =  $request->description;
+        $portfolioItem->client =  $request->client;
+        $portfolioItem->website =  $request->website;
 
-        $update->save();
+        $portfolioItem->save();
         toastr()->success('Created successfully!', 'Congrats');
         return redirect()->route('admin.portfolio-item.index');
     }
