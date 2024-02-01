@@ -31,9 +31,9 @@
                             </figure>
                             <div class="portfolio-content">
                                 <a href="{{ asset($item->image) }}" data-lity class="icon"><i class="fas fa-plus"></i></a>
-                                <h4 class="title"><a href="{{ route('admin.portfolio-item.show',) }}">{{ $item->title }}</a></h4>
+                                <h4 class="title"><a href="{{ route('show.portfolio', $item->id) }}">{{ $item->title }}</a></h4>
                                 <div class="desc">
-                                    <p>{!! Str::limit($item->description, 100) !!}</p>
+                                    <p>{!! Str::limit($item->description) !!}</p>
                                 </div>
                             </div>
                         </div>

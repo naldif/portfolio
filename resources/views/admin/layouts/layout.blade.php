@@ -130,13 +130,22 @@
                             type: 'DELETE',
                             url: deleteUrl,
                             success: function(data) {
+                                if(data.status == 'error') {
 
-                                Swal.fire({
-                                title: "Deleted!",
-                                text: "Your file has been deleted.",
-                                icon: "success"
-                                });
-                                window.location.reload();
+                                    Swal.fire({                          
+                                    title: "Your can not deleted.",
+                                    text: "This category contain items can be deleted.",
+                                    icon: "error"
+                                    });
+                                } else {
+
+                                    Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                    });
+                                    window.location.reload();
+                                }
                             },
                             error: function(xhr, status, error) {
                                 console.log(error);
